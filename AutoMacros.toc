@@ -1,0 +1,9 @@
+## Interface: 11302
+## Title: AutoMacros
+## Notes: 
+## Author: Lasse Vågsæther KArlsen
+## Version: 0.10.0
+## DefaultState: Enabled
+## RequiredDeps: LVK
+AutoMacros_Init.lua
+AutoMacros.lua
