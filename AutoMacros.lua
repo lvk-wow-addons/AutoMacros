@@ -62,7 +62,7 @@ end
 
 function AutoMacros:GetMacroIndex(id)
     local search = "--" .. id
-    for index=1, 54 do
+    for index=1, 138 do
         local name, _, body = GetMacroInfo(index)
         if name then
             if string.match(body, search) then
@@ -175,6 +175,78 @@ function AutoMacros:PlayerLeftCombat()
         self.inventoryChangedDuringCombat = false
         self:InventoryChanged()
     end
+end
+
+function AutoMacros:SetMode(mode)
+    if mode == 1 then
+        -- dps
+        AutoMacros:RebuildModeMacros(function(name,lines)
+            if name == "Shoot" then
+                return {
+                    "#showtooltip 18",
+                    "//auto",
+                    "/targetenemy [dead][noexists][noharm]",
+                    "/cast !Shoot"
+                }
+            else
+                local result = {}
+                for k, v in ipairs(lines) do
+                    if v:sub(1, 13) == "//targetenemy" or v:sub(1, 13) == "//startattack" then
+                        v = v:sub(2)
+                    end
+                    table.insert(result, v)
+                end
+                return result
+            end
+        end)
+    else
+        -- healer
+        AutoMacros:RebuildModeMacros(function(name,lines)
+            if name == "Shoot" then
+                return {
+                    "#showtooltip 18",
+                    "//auto",
+                    "/cast [@mouseover,harm,nodead][@target,harm,nodead][] !Shoot"
+                }
+            else
+                local result = {}
+                for k, v in ipairs(lines) do
+                    if v:sub(1, 12) == "/targetenemy" or v:sub(1, 12) == "/startattack" then
+                        v = "/" .. v
+                    end
+                    table.insert(result, v)
+                end
+                return result
+            end
+        end)
+    end
+end
+
+function AutoMacros:RebuildModeMacros(fn)
+    local search = "//auto"
+    for index=1, 138 do
+        local name, _, body = GetMacroInfo(index)
+        if name then
+            if string.match(body, search) then
+                local lines = LVK:SplitLines(body)
+                newLines = fn(name, lines)
+                if newLines then
+                    -- print("updating " .. name .. " to:")
+                    body = LVK:AssembleLines(newLines)
+                    -- print(body)
+                    EditMacro(index, nil, nil, body, 1)
+                end
+            end
+        end
+    end
+end
+
+function AutoMacros:SplitMacroBody(body)
+    local lines = {}
+    for line in body:gmatch("[^\r\n]+") do
+        table.insert(lines, line)
+    end
+    return lines
 end
 
 local frame = CreateFrame("frame")
