@@ -1,7 +1,7 @@
-## Interface: 11302
+## Interface: 90001
 ## Title: AutoMacros
 ## Notes: 
-## Author: Lasse Vågsæther KArlsen
+## Author: Lasse Vågsæther Karlsen
 ## Version: 0.10.0
 ## DefaultState: Enabled
 ## RequiredDeps: LVK
