@@ -48,7 +48,11 @@ function AutoMacros_InitTables(settings)
         [8953] = { 20, 1500 }, -- Deep Fried Plantains
         [8948] = { 20, 1500 }, -- Dried King Bolete
 
+        [43523] = { 1, 1000000000 }, -- Conjured Mana Strudel
         [80610] = { 35, 1000000000 }, -- Conjured Mana Pudding
+        [201512] = { 40, 11000 }, -- Dried Mackerel Strips
+        [155814] = { 45, 16000 }, -- Timmy Gene Sunrise Pork
+        [133571] = { 40, 10576 }, -- Azshari Salad
     }
     settings["specialFood"] = {
         [2680] = { 0, 180 }, -- Spiced Wolf Meat
@@ -59,6 +63,7 @@ function AutoMacros_InitTables(settings)
         [21072] = { 5, 15750 }, -- Smoked Sagefish
 
         [21217] = { 13, 9135 }, -- Sagefish Delight
+        [133570] = { 40, 10576 }, -- The Hungry Magister
     }
     settings["drink"] = {
         [159] = { 0, 180 }, -- Refreshing Spring Water
@@ -83,9 +88,13 @@ function AutoMacros_InitTables(settings)
 
         [8079] = { 23, 2160 }, -- Conjured Crystal Water
 
+        [43523] = { 1, 1000000000 }, -- Conjured Mana Strudel
         [80610] = { 35, 1000000000 }, -- Conjured Mana Pudding
+        [201512] = { 40, 5500 }, -- Dried Mackerel Strips
+        [133570] = { 40, 5288 }, -- The Hungry Magister
     }
     settings["specialDrink"] = {
+        
     }
     settings["healingPotion"] = {
         [118] = { 3, 80 }, -- Minor Healing Potion
@@ -94,14 +103,24 @@ function AutoMacros_InitTables(settings)
         [1710] = { 13, 68 }, -- Greater Healing Potion
         [3928] = { 20, 104 }, -- Superior Healing Potion
         [152494] = { 40, 3546 }, -- Coastal Healing Potion
+        [127834] = { 40 , 2295 }, -- Ancient Healing Potion
+        [169451] = { 40, 6672 }, -- Abyssal Healing Potion
+        [22829] = { 23, 478 }, -- Super Healing Potioin
+        [13446] = { 20, 334 }, -- Major Healing Potion
+        [33447] = { 27, 631 }, -- Runic Healing Potion
+        [22850] = { 10, 500 }, -- Super Rejuvenation Potion
     }
     settings["manaPotion"] = {
         [2455] = { 0, 180 }, -- Minor Mana Potion
         [3385] = { 14, 360 }, -- Lesser Mana Potion
         [3827] = { 22, 585 }, -- Mana Potion
         [6149] = { 31, 900 }, -- Greater Mana Potion
+        [127835] = { 40, 733 }, -- Ancient Mana Potion
+        [22850] = { 10, 500 }, -- Super Rejuvenation Potion
+        [33448] = { 27, 717 }, -- Runic Mana Potion
     }
     settings["specialPotion"] = {
-        [1322] = { 0, 10 }
+        [1322] = { 0, 10 },
+        [142117] = { 40, 40 }, -- Potion of Prolonged Power
     }
 end

@@ -177,6 +177,64 @@ function AutoMacros:PlayerLeftCombat()
     end
 end
 
+function AutoMacros:GroupChanged()
+    if UnitClass("player") == "Priest" and GetSpecialization() == 2 then
+        local isHealerInGroup = (IsInGroup() or IsInRaid()) and (UnitGroupRolesAssigned("player") == "HEALER")
+
+        AutoMacros:RebuildModeMacros(function(name, lines)
+            if name == "PH1" then
+                if isHealer then
+                    return {
+                        "#showtooltip",
+                        "//auto",
+                        "/cast [@mouseover,help,nodead][help,nodead] Flash Heal; [@mouseover,harm,nodead][harm,nodead] Smite; [] Flash Heal"
+                    }
+                else
+                    return {
+                        "#showtooltip",
+                        "//auto",
+                        "/targetenemy [dead][noexist]",
+                        "/startattack",
+                        "/cast [@mouseover,help,nodead][help,nodead] Flash Heal; [@mouseover,harm,nodead][harm,nodead] Smite; [] Flash Heal"
+                    }
+                end
+            elseif name == "PH2" then
+                if isHealer then
+                    return {
+                        "#showtooltip",
+                        "//auto",
+                        "/cast [@mouseover,help,nodead][help,nodead] Heal; [@mouseover,harm,nodead][harm,nodead] Holy Fire; [] Heal"
+                    }
+                else
+                    return {
+                        "#showtooltip",
+                        "//auto",
+                        "/targetenemy [dead][noexist]",
+                        "/startattack",
+                        "/cast [@mouseover,help,nodead][help,nodead] Heal; [@mouseover,harm,nodead][harm,nodead] Holy Fire; [] Heal"
+                    }
+                end
+            elseif name == "PH3" then
+                if isHealer then
+                    return {
+                        "#showtooltip",
+                        "//auto",
+                        "/cast [@mouseover,help,nodead][help,nodead] Binding Heal; [@mouseover,harm,nodead][harm,nodead] Holy Word: Chastise; [] Binding Heal"
+                    }
+                else
+                    return {
+                        "#showtooltip",
+                        "//auto",
+                        "/targetenemy [dead][noexist]",
+                        "/startattack",
+                        "/cast [@mouseover,help,nodead][help,nodead] Binding Heal; [@mouseover,harm,nodead][harm,nodead] Holy Word: Chastise; [] Binding Heal"
+                    }
+                end
+            end
+        end)
+    end
+end
+
 function AutoMacros:SetMode(mode)
     if mode == 1 then
         -- dps
@@ -254,6 +312,8 @@ frame:RegisterEvent("BAG_UPDATE")
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:RegisterEvent("PLAYER_LEAVE_COMBAT")
 frame:RegisterEvent("PLAYER_REGEN_ENABLED")
+frame:RegisterEvent("RAID_ROSTER_UPDATE")
+frame:RegisterEvent("GROUP_ROSTER_UPDATE")
 local function frameEventHandler(self, event, ...)
     if event == "BAG_UPDATE" or event == "PLAYER_ENTERING_WORLD" then
         AutoMacros:InventoryChanged()
@@ -261,8 +321,12 @@ local function frameEventHandler(self, event, ...)
     if event == "PLAYER_LEAVE_COMBAT" or event == "PLAYER_REGEN_ENABLED" then
         AutoMacros:PlayerLeftCombat()
     end
+    if event == "RAID_ROSTER_UPDATE" or event == "GROUP_ROSTER_UPDATE" then
+        AutoMacros:GroupChanged()
+    end
 end
 frame:SetScript("OnEvent", frameEventHandler)
 
 AutoMacros_InitTables(AutoMacros)
+AutoMacros:GroupChanged()
 LVK:AnnounceAddon("AutoMacros")
