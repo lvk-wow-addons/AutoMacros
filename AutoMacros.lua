@@ -148,8 +148,8 @@ function AutoMacros:GetBestItem(tbl)
     local maxLevel = UnitLevel("player")
 
     for bag = 0, 4 do
-        for slot = 1, GetContainerNumSlots(bag) do
-            local item = GetContainerItemLink(bag, slot)
+        for slot = 1, C_Container.GetContainerNumSlots(bag) do
+            local item = C_Container.GetContainerItemLink(bag, slot)
             local itemId = LVK:GetItemId(item)
 
             if itemId then
